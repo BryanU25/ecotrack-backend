@@ -5,10 +5,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   Entity,
+  ManyToOne,
 } from 'typeorm';
 
 import { DimUsuarios } from './dim-usuarios.entity';
-import { Exclude } from 'class-transformer';
+import { Exclude, Transform } from 'class-transformer';
+import { DimRol } from './dim-rol.entity';
 
 @Entity()
 export class FacUsuarios {
@@ -22,6 +24,15 @@ export class FacUsuarios {
     foreignKeyConstraintName: 'fac_usuarios_id_usuario_fkey',
   })
   usuario: DimUsuarios;
+
+  @Transform(({ value }) => ({ id: value.id, rol: value.rol }))
+  @ManyToOne(() => DimRol, { nullable: false })
+  @JoinColumn({
+    name: 'id_rol',
+    referencedColumnName: 'id',
+    foreignKeyConstraintName: 'fac_usuarios_id_rol_fkey',
+  })
+  rol: DimRol;
 
   @Exclude()
   @CreateDateColumn()

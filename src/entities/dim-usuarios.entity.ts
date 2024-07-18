@@ -10,6 +10,7 @@ import {
 
 @Entity('dim_usuarios')
 @Unique('dim_usuarios_email_key', ['email'])
+@Unique('dim_usuarios_username_key', ['username'])
 export class DimUsuarios {
   @Exclude()
   @PrimaryGeneratedColumn({ primaryKeyConstraintName: 'dim_usuarios_pkey' })
@@ -21,7 +22,7 @@ export class DimUsuarios {
   @Column({ unique: true, length: 255 })
   email: string;
 
-  @Column({ length: 32 })
+  @Column({ length: 32, unique: true })
   username: string;
 
   @Exclude()
