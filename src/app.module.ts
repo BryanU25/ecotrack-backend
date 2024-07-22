@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
+// import { AuthModule } from './auth/auth.module';
 
 import database from './config/database';
 import app from './config/app';
@@ -44,6 +45,8 @@ import auth from './config/auth';
       }),
       inject: [ConfigService],
     }),
+    //Descomenta la linea cuando crees tu primer usuario administrador.
+    // AuthModule,
     UsersModule,
   ],
   controllers: [AppController],
