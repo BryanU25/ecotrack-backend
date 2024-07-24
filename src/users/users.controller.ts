@@ -13,12 +13,14 @@ import { UsersService } from './users.service';
 import { FacUsuarios } from 'src/entities/fac-usuarios.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Roles } from 'src/auth/decorators/role.decorator';
 
 @Controller('users')
 @ApiTags('Users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
-
+  
+  @Roles('administrador')
   @Get()
   getUsers() {
     return this.usersService.getUsers();
