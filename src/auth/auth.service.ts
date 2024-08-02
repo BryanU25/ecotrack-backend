@@ -18,7 +18,7 @@ export class AuthService {
 
   async signIn(email: string, password: string): Promise<SignInResponseDto> {
     const user = await this.usersService.findOneByEmail(email);
-
+    
     if (!user)
       throw new HttpException(
         'Invalid email or password',
@@ -39,6 +39,7 @@ export class AuthService {
     const payload = {
       sub: user.id,
       email: user.usuario.email,
+      rol: user.rol.rol,
     };
 
     const accessToken = await this.jwtService.signAsync(payload);

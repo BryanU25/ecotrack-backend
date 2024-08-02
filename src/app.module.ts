@@ -5,6 +5,8 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
+import { HCarbonoModule } from './h_carbono/h_carbono.module';
 
 import database from './config/database';
 import app from './config/app';
@@ -45,6 +47,8 @@ import auth from './config/auth';
       inject: [ConfigService],
     }),
     UsersModule,
+    AuthModule,
+    HCarbonoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
