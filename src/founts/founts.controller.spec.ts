@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { HCarbonoController } from './h_carbono.controller';
+import { FountsController } from './founts.controller';
 
-describe('HCarbonoController', () => {
-  let controller: HCarbonoController;
+describe('FountsController', () => {
+  let controller: FountsController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [HCarbonoController],
+      controllers: [FountsController],
     }).compile();
 
-    controller = module.get<HCarbonoController>(HCarbonoController);
+    controller = module.get<FountsController>(FountsController);
   });
 
   it('should be defined', () => {

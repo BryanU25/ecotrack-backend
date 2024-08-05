@@ -8,12 +8,13 @@ import {
     UpdateDateColumn,
     Unique
 } from 'typeorm';
-import { Subcategoria } from './dim-subcategorias.entity';
 
-@Entity('compuestos')
-@Unique('compuestos_nombre_key', ['nombre'])
-export class Compuesto {
-    @PrimaryGeneratedColumn( { primaryKeyConstraintName: 'dim_compuestos_pkey' })
+import { SubCategory } from './dim-subcategories.entity';
+
+@Entity('dim_founts')
+@Unique('dim_founts_name_key', ['name'])
+export class Fount {
+    @PrimaryGeneratedColumn( { primaryKeyConstraintName: 'dim_founts_pkey' })
     id: number;
 
     @Column({ length: 100 })
@@ -22,10 +23,10 @@ export class Compuesto {
     @Column('decimal')
     CO2: number;
   
-    @Column('decimal') 
+    @Column('decimal') //Excluir de datos para categorias distintas a Combustibles
     CH4_F: number;
   
-    @Column('decimal')
+    @Column('decimal') //Excluir de datos para categorias distintas a Combustibles
     N2O_F: number;
 
     @Column('decimal') //Excluir de datos para categorias distintas a Combustibles
@@ -34,8 +35,8 @@ export class Compuesto {
     @Column('decimal') //Excluir de datos para categorias distintas a Combustibles
     N2O_M: number;
 
-    @ManyToOne(() => Subcategoria, subcategoria => subcategoria.compuestos)
-    subcategoria: Subcategoria;
+    @ManyToOne(() => SubCategory, subcategory => subcategory.founts)
+    subcategory: SubCategory;
 
     @Exclude()
     @CreateDateColumn()
@@ -45,7 +46,7 @@ export class Compuesto {
     @UpdateDateColumn()
     updated_at: Date;
   
-    constructor(partial: Partial<Compuesto>) {
+    constructor(partial: Partial<Fount>) {
       Object.assign(this, partial);
     }
 }
