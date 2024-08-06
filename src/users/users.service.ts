@@ -23,7 +23,7 @@ export class UsersService {
       relations: ['usuario', 'rol'],
     });
 
-    if (!users) {
+    if (!users || users.length === 0) {
       throw new HttpException(
         'No se encontró ningun usuario en la base de datos.',
         HttpStatus.NOT_FOUND,

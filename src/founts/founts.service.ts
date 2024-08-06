@@ -62,9 +62,33 @@ export class FountsService {
     private fountsRepository: Repository<Fount>,
   ) {}
 
-  async createFount(createFountDto: CreateFountDto): Promise<Fount | HttpException> {
-    const newFount = this.fountsRepository.create(createFountDto);
-    return await this.fountsRepository.save(newFount);
+  async createFount(createFountDto: CreateFountDto): Promise<Fount> {
+    const fount = this.fountsRepository.create(createFountDto);
+    return await this.fountsRepository.save(fount);
+  }
+
+  async findAll(): Promise<Fount[] | HttpException> {
+    const founts = await this.fountsRepository.find();
+  
+    if (!founts || founts.length === 0) {
+      throw new HttpException(
+        'No se encontró ninguna fuente en la base de datos.',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+  
+    return founts;
+  }
+  
+
+  async findOne(id: number): Promise<Fount | HttpException> {
+    const fount = await this.fountsRepository.findOne({
+      where: { id },      
+    });
+    if (!fount) {
+      throw new HttpException('Fount not found', HttpStatus.NOT_FOUND);
+    }
+    return fount;
   }
 
   async updateFount(id: number, updateData: UpdateFountDto): Promise<Fount | HttpException> {
@@ -85,7 +109,7 @@ export class FountsService {
   }
 
 
-  //FNCION PARA VALIDACION ADICIONAL (Establece que datos (variables de fuente de emision), dependiendo la categoria establecida. [Falta establecer bien las categorias])
+  //FNCION PARA VALIDACION ADICIONAL (Establece que datos (variables de fuente de emision), dependiendo la categoria establecida. [Falta establecer bien las categorias]) (HACERLO SOLO PARA LA CREACION)
 //   private isValidFount(fount: CreateFountDto): boolean {
 //     const { categoria, co2, ch4Fijo, ch4Movil, n2oFijo, n2oMovil } = fount;
 
